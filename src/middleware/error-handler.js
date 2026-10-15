@@ -6,8 +6,14 @@ export function errorHandler(err, req, res, next) {
     return next(err);
   }
 
-  // TODO (you): when err is an HttpError, respond with err.status and
-  // { error: { message: err.message, details: err.details } }.
+  if (err instanceof HttpError) {
+    const body = { error: { message: err.message } };
+    // details only appears on 400 errors
+    if (err.status === 400 && err.details !== undefined) {
+      body.error.details = err.details;
+    }
+    return res.status(err.status).json(body);
+  }
 
   // Anything else is a bug. The details go to the terminal, never to the client.
   console.error(err);
