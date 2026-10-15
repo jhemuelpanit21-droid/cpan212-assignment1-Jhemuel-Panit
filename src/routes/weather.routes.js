@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { parseCity } from '../validators/weather.validators.js';
+import { parseCity } from '../validators/weather-query.js';
 import { getCityWeather } from '../lib/weather.js';
 
 export const weatherRouter = Router();
@@ -7,7 +7,7 @@ export const weatherRouter = Router();
 const ATTRIBUTION = 'Weather data by Open-Meteo.com (https://open-meteo.com/)';
 
 weatherRouter.get('/weather', async (req, res) => {
-  const city = parseCity(req.query);
+  const city = parseCity(req.query.city);
   const data = await getCityWeather(city);
   res.json({ data, attribution: ATTRIBUTION });
 });
