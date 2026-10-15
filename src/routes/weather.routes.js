@@ -1,17 +1,18 @@
 import { Router } from 'express';
+import { parseCity } from '../validators/weather.validators.js';
+import { getCityWeather } from '../lib/weather.js';
 
 export const weatherRouter = Router();
 
-// TODO (you): GET /api/weather?city=Toronto
-// Validate with parseCity, get the summary with getCityWeather, and respond
-// with { data, attribution }. Routes never call fetch themselves.
-weatherRouter.get('/weather', (req, res) => {
-  res.status(501).json({ error: { message: 'Not written yet: GET /api/weather' } });
+const ATTRIBUTION = 'Weather data by Open-Meteo.com (https://open-meteo.com/)';
+
+weatherRouter.get('/weather', async (req, res) => {
+  const city = parseCity(req.query);
+  const data = await getCityWeather(city);
+  res.json({ data, attribution: ATTRIBUTION });
 });
 
-// TODO (you): GET /api/compare?cities=Toronto,Vancouver,Halifax
-// Validate with parseCities, start every lookup at once with Promise.allSettled,
-// then build the cities array and the summary described on the assignment page.
+// compare route stays as it was for now
 weatherRouter.get('/compare', (req, res) => {
   res.status(501).json({ error: { message: 'Not written yet: GET /api/compare' } });
 });
