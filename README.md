@@ -70,5 +70,9 @@ Every error uses `{ "error": { "message": "...", "details": ... } }`, where `det
  
 Weather data by [Open-Meteo.com](https://open-meteo.com/).
 
+## AI use
+
+I used Claude. I used it to debugged, make the code pretty because im a messy coder, used it to help me fix mistakes and cheak if the code is working not only ones but make it reliable.
+
 
 
